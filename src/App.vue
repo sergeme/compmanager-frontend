@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark container">
+  <div id="app" class="h-100 d-flex flex-column">
+    <nav class="navbar navbar-expand navbar-dark bg-dark container static-top">
       <router-link to="/" class="navbar-brand mx-3" >Kompetenz-Manager</router-link>
       <div v-if="currentUser" class="navbar-nav justify-content-left w-100">
-        <b-dropdown variant="dark">
+        <b-dropdown v-if="showTeacherPages || showStudentPages" variant="dark">
           <template #button-content>
             <font-awesome-icon icon="clipboard" />
                 Kompetenzen
@@ -13,14 +13,14 @@
           <b-dropdown-item :to="'/profile'">&nbsp;Kompetenzdaten exportieren</b-dropdown-item>
           <b-dropdown-item :to="'/profile'">&nbsp;Freigegebene Kompetenzen auflisten</b-dropdown-item>
         </b-dropdown>
-        <b-dropdown variant="dark">
+        <b-dropdown v-if="showAdminPages" variant="dark">
           <template #button-content>
             <font-awesome-icon icon="users" />
                 Benutzer
           </template>
           <b-dropdown-item :to="'/profile'">&nbsp;Benutzer auflisten</b-dropdown-item>
         </b-dropdown>
-                <b-dropdown variant="dark">
+        <b-dropdown v-if="showAdminPages" variant="dark">
           <template #button-content>
             <font-awesome-icon icon="file-alt" />
                 Lehrpläne
@@ -28,7 +28,7 @@
           <b-dropdown-item :to="'/profile'">&nbsp;Lehrplan erstellen</b-dropdown-item>
           <b-dropdown-item :to="'/profile'">&nbsp;Lehrpläne auflisten</b-dropdown-item>
         </b-dropdown>
-                <b-dropdown variant="dark">
+        <b-dropdown v-if="showAdminPages" variant="dark">
           <template #button-content>
             <font-awesome-icon icon="user-graduate" />
                 Lehrgänge
@@ -36,7 +36,7 @@
           <b-dropdown-item :to="'/profile'">&nbsp;Lehrgang erstellen</b-dropdown-item>
           <b-dropdown-item :to="'/profile'">&nbsp;Lehrgänge auflisten</b-dropdown-item>
         </b-dropdown>
-                <b-dropdown variant="dark">
+        <b-dropdown v-if="showAdminPages" variant="dark">
           <template #button-content>
             <font-awesome-icon icon="chalkboard-teacher" />
                 Klassen
@@ -69,29 +69,43 @@
         </b-dropdown>
       </div>
     </nav>
-
-    <div class="container">
-      <router-view />
+    <div class="flex-grow-1 h-100">
+      <div class="container d-flex flex-column h-100 bg-light">
+        <div id="scrollContainer" class="flex-grow-1 overflow-auto" style="height: 100px;"> 
+          <router-view />
+        </div>
+      </div>
     </div>
+    <footer class="card-footer mt-auto bg-dark text-white text-center py-5 container">&nbsp;
+    </footer>
   </div>
 </template>
 
 <script>
+import { roles } from './models/roles'
+
 export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
     },
-    showAdminBoard() {
-      if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes('ROLE_ADMIN');
+    showAdminPages() {
+      if (this.currentUser && this.currentUser.role) {
+        return roles.admin & this.currentUser.role;
       }
 
       return false;
     },
-    showModeratorBoard() {
-      if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes('ROLE_MODERATOR');
+    showTeacherPages() {
+      if (this.currentUser && this.currentUser.role) {
+        return roles.teacher & this.currentUser.role;
+      }
+
+      return false;
+    },
+    showStudentPages() {
+      if (this.currentUser && this.currentUser.role) {
+        return roles.student & this.currentUser.role;
       }
 
       return false;

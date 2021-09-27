@@ -12,7 +12,6 @@ class AuthService {
       .then(response => {
         if (response.data.jwtToken) {
           localStorage.setItem('user', JSON.stringify(response.data));
-          alert(JSON.stringify(response.headers));
         }
 
         return response.data;
