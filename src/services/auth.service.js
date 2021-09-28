@@ -1,17 +1,18 @@
-import axios from 'axios';
+import api from "./api";
+import TokenService from "./token.service";
 
 const API_URL = 'http://localhost:4000/api/v1/accounts/';
 
 class AuthService {
   login(user) {
-    return axios
+    return api
       .post(API_URL + 'authenticate', {
         email: user.email,
         password: user.password
-      }, { withCredentials: true })
+      }/*, { withCredentials: true }*/)
       .then(response => {
         if (response.data.jwtToken) {
-          localStorage.setItem('user', JSON.stringify(response.data));
+          TokenService.setUser(response.data);
         }
 
         return response.data;
@@ -19,11 +20,11 @@ class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('user');
+    TokenService.removeUser();
   }
 
   register(user) {
-    return axios.post(API_URL + 'register', {
+    return api.post(API_URL + 'register', {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -34,7 +35,7 @@ class AuthService {
   }
 
   verify(token) {
-    return axios.post(API_URL + 'verify-email', {
+    return api.post(API_URL + 'verify-email', {
       token: token
     });
   }

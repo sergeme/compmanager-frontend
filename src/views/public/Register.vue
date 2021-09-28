@@ -105,7 +105,8 @@ export default {
       user: new User('', '', '', '', '', true),
       submitted: false,
       successful: false,
-      message: ''
+      message: '',
+      errors: this.$validator.errors
     };
   },
   computed: {

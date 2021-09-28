@@ -4,7 +4,7 @@ import Home from '../views/Home.vue';
 import Login from '../views/public/Login.vue';
 import Register from '../views/public/Register.vue';
 import Verify from '../views/public/Verify.vue';
-import NotFound from '../views/public/404.vue'
+import NotFound from '../views/public/404.vue';
 
 Vue.use(Router);
 
@@ -34,9 +34,8 @@ export const router = new Router({
     },
     {
       path: '/profile',
-      name: 'profile',
       // lazy-loaded
-      component: () => import('../views/Profile.vue')
+      component: () => import('../views/BoardUser.vue')
     },
     {
       path: '/admin',

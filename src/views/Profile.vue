@@ -1,32 +1,35 @@
 <template>
-  <div class="container">
-    <header class="jumbotron">
-      <h3>
-        <strong>{{currentUser.username}}</strong> Profile
-      </h3>
-    </header>
-    <p>
-      <strong>Token:</strong>
-      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
-    </p>
-    <p>
-      <strong>Id:</strong>
-      {{currentUser.id}}
-    </p>
-    <p>
-      <strong>Email:</strong>
-      {{currentUser.email}}
-    </p>
-    <strong>Authorities:</strong>
-    <ul>
-      <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
-    </ul>
+  <div class="">
+    <form name="form" @submit.prevent="test">
+      <div class="form-group my-3">
+        <button class="btn btn-primary btn-block">
+          <span v-show="submitted" class="spinner-border spinner-border-sm"></span>
+          <span>Anmelden</span>
+        </button>
+      </div>
+    </form>
+    <form name="form" @submit.prevent="reauth">
+      <div class="form-group my-3">
+        <button class="btn btn-primary btn-block">
+          <span v-show="submitted" class="spinner-border spinner-border-sm"></span>
+          <span>Anmelden</span>
+        </button>
+      </div>
+    </form>
+
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Profile',
+  data() {
+    return {
+      submitted: ''
+    }
+  },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
@@ -36,6 +39,34 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
+  },
+  methods: {
+    test() {
+    const API_URL = 'http://localhost:4000/api/v1/accounts/';
+    return axios
+      .get(API_URL, {headers: {
+        'Authorization': this.currentUser.jwtToken
+      }})
+      .then(response => {
+        if (response.data) {
+          alert(response.data[0].firstName)
+        }
+
+        return response.data;
+      });
+  },
+  reauth() {
+    const API_URL = 'http://localhost:4000/accounts/refresh-token';
+    return axios
+      .post(API_URL,null, {withCredentials:true})
+      .then(response => {
+        if (response.data) {
+          alert(response.data)
+        }
+
+        return response.data;
+      });
+  }
   }
 };
 </script>

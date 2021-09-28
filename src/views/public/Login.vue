@@ -28,7 +28,7 @@
           >Password is required!</div>
           <input
             v-model="user.password"
-            v-validate="'required'"
+            v-validate="'required|min:6'"
             type="password"
             class="form-control"
             name="password"
@@ -36,8 +36,8 @@
           
         </div>
         <div class="form-group my-3">
-          <button class="btn btn-primary btn-block" :disabled="loading">
-            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+          <button class="btn btn-primary btn-block" :disabled="submitted">
+            <span v-show="submitted" class="spinner-border spinner-border-sm"></span>
             <span>Anmelden</span>
           </button>
         </div>
@@ -58,7 +58,8 @@ export default {
     return {
       user: new User('', ''),
       submitted: false,
-      message: ''
+      message: '',
+      errors: this.$validator.errors
     };
   },
   computed: {
@@ -66,6 +67,7 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     }
   },
+
   created() {
     if (this.loggedIn) {
       this.$router.push('/profile');

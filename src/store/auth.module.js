@@ -48,6 +48,9 @@ export const auth = {
           return Promise.reject(error);
         }
       )
+    },
+    refreshToken({ commit }) {
+      commit('refreshToken');
     }
   },
   mutations: {
@@ -71,6 +74,10 @@ export const auth = {
     },
     registerFailure(state) {
       state.status.loggedIn = false;
+    },
+    refreshToken(state, jwtToken) {
+      state.status.loggedIn = true;
+      state.user = { ...state.user, jwtToken: jwtToken };
     }
   }
 };

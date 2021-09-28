@@ -70,8 +70,8 @@
       </div>
     </nav>
     <div class="flex-grow-1 h-100">
-      <div class="container d-flex flex-column h-100 bg-light">
-        <div id="scrollContainer" class="flex-grow-1 overflow-auto" style="height: 100px;"> 
+      <div class="d-flex flex-column h-100">
+        <div class="flex-grow-1 overflow-auto container bg-light" style="height: 100px;"> 
           <router-view />
         </div>
       </div>
@@ -83,6 +83,7 @@
 
 <script>
 import { roles } from './models/roles'
+import eventBus from "./helpers/eventbus";
 
 export default {
   computed: {
@@ -116,6 +117,14 @@ export default {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
     }
+  },
+  mounted() {
+    eventBus.on("logout", () => {
+      this.logOut();
+    });
+  },
+  beforeDestroy() {
+    eventBus.remove("logout");
   }
 };
 </script>
