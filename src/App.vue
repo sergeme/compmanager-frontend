@@ -8,41 +8,39 @@
             <font-awesome-icon icon="clipboard" />
                 Kompetenzen
           </template>
-          <b-dropdown-item :to="'/profile'">&nbsp;Kompetenzen auflisten</b-dropdown-item>
-          <b-dropdown-item :to="'/profile'">&nbsp;Kompetenzprofil erstellen</b-dropdown-item>
-          <b-dropdown-item :to="'/profile'">&nbsp;Kompetenzdaten exportieren</b-dropdown-item>
-          <b-dropdown-item :to="'/profile'">&nbsp;Freigegebene Kompetenzen auflisten</b-dropdown-item>
+          <b-dropdown-group v-if="showStudentPages" id="dropdown-group-student">
+            <b-dropdown-item :to="'/competences'">&nbsp;Kompetenzen auflisten</b-dropdown-item>
+            <b-dropdown-item :to="'/competences/profile'">&nbsp;Kompetenzprofil erstellen</b-dropdown-item>
+            <b-dropdown-item :to="'/competences/export'">&nbsp;Kompetenzdaten exportieren</b-dropdown-item>
+          </b-dropdown-group>
+          <b-dropdown-group v-if="showTeacherPages" id="dropdown-group-teacher">
+            <b-dropdown-item :to="'/competences/shared'">&nbsp;Freigegebene Kompetenzen auflisten</b-dropdown-item>
+          </b-dropdown-group>
+        </b-dropdown>
+        <b-dropdown v-if="showAdminPages" variant="dark">
+          <template #button-content>
+            <font-awesome-icon icon="file-alt" />
+                Stammdaten
+          </template>
+          <b-dropdown-group id="dropdown-group-1" header="Lehrpläne">
+            <b-dropdown-item :to="'/curriculum'">&nbsp;Lehrplan erstellen</b-dropdown-item>
+            <b-dropdown-item :to="'/curricula'">&nbsp;Lehrpläne auflisten</b-dropdown-item>
+          </b-dropdown-group>
+          <b-dropdown-group id="dropdown-group-2" header="Lehrgänge">
+            <b-dropdown-item :to="'/course'">&nbsp;Lehrgang erstellen</b-dropdown-item>
+            <b-dropdown-item :to="'/courses'">&nbsp;Lehrgänge auflisten</b-dropdown-item>
+          </b-dropdown-group>
+          <b-dropdown-group id="dropdown-group-3" header="Klassen">
+            <b-dropdown-item :to="'/class'">&nbsp;Klassen erstellen</b-dropdown-item>
+            <b-dropdown-item :to="'/classes'">&nbsp;Klassen auflisten</b-dropdown-item>
+          </b-dropdown-group>
         </b-dropdown>
         <b-dropdown v-if="showAdminPages" variant="dark">
           <template #button-content>
             <font-awesome-icon icon="users" />
                 Benutzer
           </template>
-          <b-dropdown-item :to="'/profile'">&nbsp;Benutzer auflisten</b-dropdown-item>
-        </b-dropdown>
-        <b-dropdown v-if="showAdminPages" variant="dark">
-          <template #button-content>
-            <font-awesome-icon icon="file-alt" />
-                Lehrpläne
-          </template>
-          <b-dropdown-item :to="'/profile'">&nbsp;Lehrplan erstellen</b-dropdown-item>
-          <b-dropdown-item :to="'/profile'">&nbsp;Lehrpläne auflisten</b-dropdown-item>
-        </b-dropdown>
-        <b-dropdown v-if="showAdminPages" variant="dark">
-          <template #button-content>
-            <font-awesome-icon icon="user-graduate" />
-                Lehrgänge
-          </template>
-          <b-dropdown-item :to="'/profile'">&nbsp;Lehrgang erstellen</b-dropdown-item>
-          <b-dropdown-item :to="'/profile'">&nbsp;Lehrgänge auflisten</b-dropdown-item>
-        </b-dropdown>
-        <b-dropdown v-if="showAdminPages" variant="dark">
-          <template #button-content>
-            <font-awesome-icon icon="chalkboard-teacher" />
-                Klassen
-          </template>
-          <b-dropdown-item :to="'/profile'">&nbsp;Klassen erstellen</b-dropdown-item>
-          <b-dropdown-item :to="'/profile'">&nbsp;Klassen auflisten</b-dropdown-item>
+          <b-dropdown-item :to="'/users'">&nbsp;Benutzer auflisten</b-dropdown-item>
         </b-dropdown>
       </div>
 
