@@ -8,7 +8,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import de from 'vee-validate/dist/locale/de';
 import VeeValidate, { Validator } from 'vee-validate';
 import setupInterceptors from './services/setupInterceptors';
-import { domain } from './helpers/validators'
+import { domain } from './helpers/validators';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {

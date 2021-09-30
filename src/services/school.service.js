@@ -1,12 +1,14 @@
 import api from "./api";
-import TokenService from "./token.service";
 
-const accountEndpoint = 'accounts';
+const departmentEndpoint = 'departments';
+const courseEndpoint = 'courses';
+const locationEndpoint = 'locations';
+const classEndpoint = 'classes';
 
 class AuthService {
   login(user) {
     return api
-      .post(accountEndpoint+'/authenticate', {
+      .post(API_URL + 'authenticate', {
         email: user.email,
         password: user.password
       }/*, { withCredentials: true }*/)
@@ -24,7 +26,7 @@ class AuthService {
   }
 
   register(user) {
-    return api.post(accountEndpoint+'/register', {
+    return api.post(API_URL + 'register', {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -35,7 +37,7 @@ class AuthService {
   }
 
   verify(token) {
-    return api.post(accountEndpoint+'/verify-email', {
+    return api.post(API_URL + 'verify-email', {
       token: token
     });
   }

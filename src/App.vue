@@ -20,19 +20,19 @@
         <b-dropdown v-if="showAdminPages" variant="dark">
           <template #button-content>
             <font-awesome-icon icon="file-alt" />
-                Stammdaten
+                Anwendungsdaten
           </template>
+          <b-dropdown-group id="dropdown-group-3" header="Klassen">
+            <b-dropdown-item :to="'/class'">&nbsp;Klassen erstellen</b-dropdown-item>
+            <b-dropdown-item :to="'/classes'">&nbsp;Klassen auflisten</b-dropdown-item>
+          </b-dropdown-group>
           <b-dropdown-group id="dropdown-group-1" header="Lehrpläne">
             <b-dropdown-item :to="'/curriculum'">&nbsp;Lehrplan erstellen</b-dropdown-item>
             <b-dropdown-item :to="'/curricula'">&nbsp;Lehrpläne auflisten</b-dropdown-item>
           </b-dropdown-group>
-          <b-dropdown-group id="dropdown-group-2" header="Lehrgänge">
-            <b-dropdown-item :to="'/course'">&nbsp;Lehrgang erstellen</b-dropdown-item>
-            <b-dropdown-item :to="'/courses'">&nbsp;Lehrgänge auflisten</b-dropdown-item>
-          </b-dropdown-group>
-          <b-dropdown-group id="dropdown-group-3" header="Klassen">
-            <b-dropdown-item :to="'/class'">&nbsp;Klassen erstellen</b-dropdown-item>
-            <b-dropdown-item :to="'/classes'">&nbsp;Klassen auflisten</b-dropdown-item>
+          <b-dropdown-group id="dropdown-group-2" header="Schuldaten">
+            <b-dropdown-item :to="'/school'">&nbsp;Schuldaten anzeigen</b-dropdown-item>
+
           </b-dropdown-group>
         </b-dropdown>
         <b-dropdown v-if="showAdminPages" variant="dark">
