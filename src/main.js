@@ -2,9 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import { router } from './router';
 import store from './store';
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import de from 'vee-validate/dist/locale/de';
 import VeeValidate, { Validator } from 'vee-validate';
 import setupInterceptors from './services/setupInterceptors';
@@ -37,6 +35,7 @@ library.add(
   faFileAlt,
   faUserGraduate,
   faChalkboardTeacher);
+
 
 Vue.config.productionTip = false;
 Vue.use(VeeValidate, { inject: true});
