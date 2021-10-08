@@ -5,8 +5,8 @@ import store from './store';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import de from 'vee-validate/dist/locale/de';
 import VeeValidate, { Validator } from 'vee-validate';
-import setupInterceptors from './services/setupInterceptors';
-import { domain } from './helpers/validators';
+import setupInterceptors from 'services/setupInterceptors';
+import { domain } from 'helpers/validators';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
@@ -20,21 +20,31 @@ import {
   faUsers,
   faFileAlt,
   faUserGraduate,
-  faChalkboardTeacher
+  faChalkboardTeacher,
+  faPlusCircle,
+  faMinusCircle,
+  faTrashAlt,
+  faEdit,
+  faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
-  faHome,
-  faUser,
-  faUserPlus,
-  faSignInAlt,
-  faSignOutAlt,
-  faIdBadge,
-  faClipboard,
-  faUsers,
-  faFileAlt,
-  faUserGraduate,
-  faChalkboardTeacher);
+faHome,
+faUser,
+faUserPlus,
+faSignInAlt,
+faSignOutAlt,
+faIdBadge,
+faClipboard,
+faUsers,
+faFileAlt,
+faUserGraduate,
+faChalkboardTeacher,
+faPlusCircle,
+faMinusCircle,
+faTrashAlt,
+faEdit,
+faMapMarkerAlt);
 
 
 Vue.config.productionTip = false;

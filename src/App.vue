@@ -63,7 +63,7 @@
     <div class="flex-grow-1 h-100">
       <div class="d-flex flex-column h-100">
         <div class="flex-grow-1 overflow-auto container bg-light" style="height: 100px;"> 
-          <router-view />
+          <router-view />{{test}}
         </div>
       </div>
     </div>
@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import { roles } from './models/roles'
-import eventBus from "./helpers/eventbus";
+import { roles } from 'models/roles'
+import eventBus from "helpers/eventbus";
 
 export default {
   data() {
@@ -83,6 +83,9 @@ export default {
     };
   },
   computed: {
+    test() {
+      return this.$store.state.departments;
+    },
     currentUser() {
       return this.$store.state.auth.user;
     },

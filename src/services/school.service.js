@@ -1,46 +1,117 @@
 import api from "./api";
 
-const departmentEndpoint = 'departments';
-const courseEndpoint = 'courses';
-const locationEndpoint = 'locations';
-const classEndpoint = 'classes';
+const departmentEndpoint = 'departments/';
+const courseEndpoint = 'courses/';
+const locationEndpoint = 'locations/';
 
-class AuthService {
-  login(user) {
+class SchoolService {
+  //departments
+  getDepartments() {
     return api
-      .post(API_URL + 'authenticate', {
-        email: user.email,
-        password: user.password
-      }/*, { withCredentials: true }*/)
+      .get(departmentEndpoint)
       .then(response => {
-        if (response.data.jwtToken) {
-          TokenService.setUser(response.data);
-        }
-
         return response.data;
       });
   }
 
-  logout() {
-    TokenService.removeUser();
+  addDepartment(department) {
+    return api
+      .post(departmentEndpoint, department)
+      .then(response => {
+        return response.data;
+      });
   }
 
-  register(user) {
-    return api.post(API_URL + 'register', {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      password: user.password,
-      confirmPassword: user.confirmPassword,
-      acceptTerms: user.acceptTerms
-    });
+  updateDepartment(department) {
+    return api
+      .put(departmentEndpoint, department)
+      .then(response => {
+        return response.data;
+      });
   }
 
-  verify(token) {
-    return api.post(API_URL + 'verify-email', {
-      token: token
-    });
+  deleteDepartment(department) {
+    return api
+      .delete(departmentEndpoint + department)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  //courses
+  addCourse(course) {
+    return api
+      .post(courseEndpoint, course)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  updateCourse(course) {
+    return api
+      .put(courseEndpoint, course)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  deleteCourse(course) {
+    return api
+      .delete(courseEndpoint + course)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  //locations
+
+  getLocations() {
+    return api
+      .get(locationEndpoint)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  addLocation(location) {
+    return api
+      .post(locationEndpoint, location)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  addCourseLocation(location) {
+    return api
+      .put(courseEndpoint+'add-location', location)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  updateLocation(location) {
+    return api
+      .put(locationEndpoint, location)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  deleteLocation(location) {
+    return api
+      .delete(locationEndpoint + location)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  deleteCourseLocation(location) {
+    return api
+      .put(courseEndpoint+'remove-location', location)
+      .then(response => {
+        return response.data;
+      });
   }
 }
 
-export default new AuthService();
+export default new SchoolService();

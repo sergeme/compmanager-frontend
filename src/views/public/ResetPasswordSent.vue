@@ -1,41 +1,12 @@
 <template>
   <div class="col-md-12">
     <div class="card col-md-6">
-      <div class="row">
-        <div class="form-group col-md-12">
-          <h5 class="text-sm-center">Registrieren</h5>
-        </div>
-      </div>
       <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
           <div class="row">
             <div class="form-group col-md-6">
-              <label for="Vorname">Vorname</label>
-              <input v-model="user.firstName" v-validate="'required|min:3|max:20'" 
-              type="text" class="form-control" name="Vorname"/>
-              <div v-if="submitted && errors.has('Vorname')" 
-              class="alert-danger">{{errors.first('Vorname')}}</div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="Nachname">Nachname</label>
-              <input
-                v-model="user.lastName" v-validate="'required|min:3|max:20'" 
-                type="text" class="form-control" name="Nachname"/>
-              <div v-if="submitted && errors.has('Nachname')" 
-              class="alert-danger">{{errors.first('Nachname')}}</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="E-Mail">E-Mail</label>
-            <input v-model="user.email" v-validate="'required|email|domain|max:50'" 
-            type="email" class="form-control" name="E-Mail"/>
-            <div v-if="submitted && errors.has('E-Mail')" 
-            class="alert-danger">{{errors.first('E-Mail')}}</div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-6">
               <label for="Passwort">Passwort</label>
-              <input v-model="user.password" v-validate="'required|min:6|max:40'" 
+              <input v-model="newPassword.password" v-validate="'required|min:6|max:40'" 
               type="password" class="form-control" name="Passwort" ref="Passwort"/>
               <div v-if="submitted && errors.has('Passwort')" 
               class="alert-danger">{{errors.first('Passwort')}}</div>
@@ -43,7 +14,7 @@
             <div class="form-group col-md-6">
               <label for="Passwortconfirmation">Passwort wiederholen</label>
               <input
-                v-model="user.confirmPassword" v-validate="'required|min:6|max:40|confirmed:Passwort'" 
+                v-model="newPassword.passwordConfirmation" v-validate="'required|min:6|max:40|confirmed:Passwort'" 
                 data-vv-as="Passwort" type="password" 
                 class="form-control" name="Passwortconfirmation"/>
               <div
@@ -65,32 +36,25 @@
         :class="successful ? 'alert-success' : 'alert-danger'"
       >{{message}}</div>
     </div>
-      <div class="row">
-        <div class="form-group col-md-12">
-          <h5 class="text-sm-center">Passwort zurücksetzen</h5>
-        </div>
-      </div>
   </div>
 </template>
 
 <script>
-import { User } from 'models/user';
 
 export default {
-  name: 'Register',
+  name: 'Passwort zurücksetzen',
   data() {
     return {
-      user: new User('', '', '', '', '', true),
+      newPassword: new {password: '', passwordConfirmation: ''},
       submitted: false,
       successful: false,
       message: '',
-      errors: this.$validator.errors
+      errors: this.$validator.errors,
+      token: ''
     };
   },
   computed: {
-    loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
-    }
+
   },
   mounted() {
     if (this.loggedIn) {

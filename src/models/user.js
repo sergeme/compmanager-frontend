@@ -1,4 +1,4 @@
-export default class User {
+export const User = class User {
   constructor(firstName, lastName, email, password, confirmPassword, acceptTerms) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -6,5 +6,13 @@ export default class User {
     this.password = password;
     this.confirmPassword = confirmPassword;
     this.acceptTerms = acceptTerms;
+  }
+}
+
+export const ResetPassword = class ResetPassword {
+  constructor(token, password, passwordConfirmation) {
+    this.token = token;
+    this.password = password;
+    this.passwordConfirmation = passwordConfirmation;
   }
 }

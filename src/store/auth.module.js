@@ -49,6 +49,30 @@ export const auth = {
         }
       )
     },
+    forgotPassword({ commit }, payload) {
+      return AuthService.forgotPassword(payload).then(
+        response => {
+          commit('forgotSuccess');
+          return Promise.resolve(response.data);
+        },
+        error => {
+          commit('forgotFailure');
+          return Promise.reject(error);
+        }
+      )
+    },
+    resetPassword({ commit }, payload) {
+      return AuthService.resetPassword(payload).then(
+        response => {
+          commit('resetSuccess');
+          return Promise.resolve(response.data);
+        },
+        error => {
+          commit('resetFailure');
+          return Promise.reject(error);
+        }
+      )
+    },
     refreshToken({ commit }) {
       commit('refreshToken');
     }
@@ -69,10 +93,25 @@ export const auth = {
     registerSuccess(state) {
       state.status.loggedIn = false;
     },
+    registerFailure(state) {
+      state.status.loggedIn = false;
+    },
     verificationSuccess(state) {
       state.status.loggedIn = false;
     },
-    registerFailure(state) {
+    verificationFailure(state) {
+      state.status.loggedIn = false;
+    },
+    forgotSuccess(state) {
+      state.status.loggedIn = false;
+    },
+    forgotFailure(state) {
+      state.status.loggedIn = false;
+    },
+    resetSuccess(state) {
+      state.status.loggedIn = false;
+    },
+    resetFailure(state) {
       state.status.loggedIn = false;
     },
     refreshToken(state, jwtToken) {

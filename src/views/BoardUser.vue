@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>{{content}}</h3>
+      <h3>{{content}} s</h3>
     </header>
   </div>
 </template>
 
 <script>
 import UserService from '../services/user.service';
-import EventBus from "../helpers/eventbus";
+import eventBus from "../helpers/eventbus";
 
 export default {
   name: 'User',
@@ -19,8 +19,8 @@ export default {
   },
   mounted() {
     UserService.getUserBoard().then(
-      response => {
-        this.content = response.data;
+      () => {
+        this.content = this.$store.state.auth.user;
       },
       error => {
         this.content =
@@ -29,7 +29,7 @@ export default {
           error.toString();
 
         if (error.response && error.response.status === 403) {
-          EventBus.dispatch("logout");
+          eventBus.dispatch("logout");
         }
       }
     );
