@@ -23,7 +23,7 @@
                 Anwendungsdaten
           </template>
           <b-dropdown-group id="dropdown-group-3" header="Klassen">
-            <b-dropdown-item :to="'/data/class'" exact-active-class="active">&nbsp;Klassen erstellen</b-dropdown-item>
+            <b-dropdown-item :to="'/data/classes/new'" exact-active-class="active">&nbsp;Klassen erstellen</b-dropdown-item>
             <b-dropdown-item :to="'/data/classes'" exact-active-class="active">&nbsp;Klassen auflisten</b-dropdown-item>
           </b-dropdown-group>
           <b-dropdown-group id="dropdown-group-1" header="Lehrpläne">

@@ -1,46 +1,63 @@
 import api from "./api";
 
-const departmentEndpoint = 'departments';
-const courseEndpoint = 'courses';
-const locationEndpoint = 'locations';
-const classEndpoint = 'classes';
+const classEndpoint = 'classes/';
 
-class AuthService {
-  login(user) {
+class ClassService {
+  getClasses() {
     return api
-      .post(API_URL + 'authenticate', {
-        email: user.email,
-        password: user.password
-      }/*, { withCredentials: true }*/)
+      .get(classEndpoint)
       .then(response => {
-        if (response.data.jwtToken) {
-          TokenService.setUser(response.data);
-        }
-
         return response.data;
       });
   }
 
-  logout() {
-    TokenService.removeUser();
+  getClassesByLocationAndCourse(obj) {
+    return api
+      .post(classEndpoint + 'by-location-and-course', obj)
+      .then(response => {
+        return response.data;
+      });
   }
 
-  register(user) {
-    return api.post(API_URL + 'register', {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      password: user.password,
-      confirmPassword: user.confirmPassword,
-      acceptTerms: user.acceptTerms
-    });
+  addClass(classObj) {
+    return api
+      .post(classEndpoint, classObj)
+      .then(response => {
+        return response.data;
+      });
   }
 
-  verify(token) {
-    return api.post(API_URL + 'verify-email', {
-      token: token
-    });
+  updateClass(classObj) {
+    return api
+      .put(classEndpoint, classObj)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  deleteClass(classObj) {
+    return api
+      .delete(classEndpoint + classObj)
+      .then(response => {
+        return response.data;
+      });
+  }
+  //students / accounts
+  addClassStudent(obj) {
+    return api
+      .put(classEndpoint+'add-student', obj)
+      .then(response => {
+        return response.data;
+      });
+  }
+
+  removeClassStudent(obj) {
+    return api
+      .put(classEndpoint+'remove-student', obj)
+      .then(response => {
+        return response.data;
+      });
   }
 }
 
-export default new AuthService();
+export default new ClassService();

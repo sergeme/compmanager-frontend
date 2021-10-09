@@ -26,9 +26,7 @@ export default {
     locations: Array,
   },
   watch: {
-    courseLocations() {
-      this.refreshAvailableLocations();
-    }
+
   },
   components: {
   },

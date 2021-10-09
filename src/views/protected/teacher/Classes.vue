@@ -2,7 +2,7 @@
   <b-card v-if="!isFetchingData" no-body tag="main" class="mt-3 p-2">
     <div class="row">
       <div class="col-12">
-        <h3 class="mb-0 pl-2">Schuldaten</h3>
+        <h3 class="mb-0 pl-2">Klassenliste</h3>
       </div>
     </div>
     <Departments :departments="departments" :locations="locations"/>
@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import Departments from 'components/school/department/Departments.vue';
+import Departments from 'components/class/Departments.vue';
 export default {
-  name: 'Schuldaten',
+  name: 'Klassen',
   components: {
     Departments
   },

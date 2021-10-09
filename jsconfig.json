@@ -1,4 +1,13 @@
 {
   "include": ["./src/**/*"],
-  "eslint.validate": ["javascript", "vue"]
+  "eslint.validate": ["javascript", "vue"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "paths": {
+      "components/*": [
+        "src/components/*"
+      ]
+    }
+  }
 }

@@ -30,7 +30,8 @@ class AuthService {
       email: user.email,
       password: user.password,
       confirmPassword: user.confirmPassword,
-      acceptTerms: user.acceptTerms
+      acceptTerms: user.acceptTerms,
+      classId: user.classId
     });
   }
 

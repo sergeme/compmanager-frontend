@@ -45,13 +45,25 @@ export const router = new Router({
     {
       path: '/profile',
       // lazy-loaded
-      component: () => import('views/BoardUser.vue')
+      component: () => import('views/Home.vue')
     },
     {
       path: '/data/school',
       name: 'school',
       // lazy-loaded
       component: () => import('views/protected/admin/School.vue')
+    },
+    {
+      path: '/data/classes',
+      name: 'classes',
+      // lazy-loaded
+      component: () => import('views/protected/teacher/Classes.vue')
+    },
+    {
+      path: '/data/classes/new',
+      name: 'newclasses',
+      // lazy-loaded
+      component: () => import('views/protected/admin/NewClasses.vue')
     },
     {
       path: '*',
