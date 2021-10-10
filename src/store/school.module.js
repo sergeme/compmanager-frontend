@@ -19,7 +19,7 @@ export const school = {
         },
         error => {
           commit('getGepartmentsFailure');
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -30,7 +30,7 @@ export const school = {
           return Promise.resolve(department);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -41,7 +41,7 @@ export const school = {
           return Promise.resolve(department);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -52,7 +52,7 @@ export const school = {
           return Promise.resolve();
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -64,7 +64,7 @@ export const school = {
           return Promise.resolve(course);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -75,7 +75,7 @@ export const school = {
           return Promise.resolve(course);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -86,7 +86,7 @@ export const school = {
           return Promise.resolve();
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -99,7 +99,7 @@ export const school = {
         },
         error => {
           commit('getLocationsFailure');
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -115,7 +115,7 @@ export const school = {
           return Promise.resolve(location);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -131,7 +131,7 @@ export const school = {
           return Promise.resolve(location);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -146,7 +146,7 @@ export const school = {
           return Promise.resolve(location);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -162,7 +162,7 @@ export const school = {
           return Promise.resolve(location);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -177,7 +177,7 @@ export const school = {
           return Promise.resolve();
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     }

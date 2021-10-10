@@ -65,7 +65,6 @@ export default {
       if(this.courseId == courseId) {
         this.toggle();
       }
-      
     });
   },
   beforeDestroy() {

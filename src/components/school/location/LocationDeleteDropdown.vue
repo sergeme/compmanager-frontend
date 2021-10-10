@@ -16,7 +16,6 @@ export default {
   data() {
     return {
       message: '',
-      availableLocations: new Array(),
       locationToDelete: {}
     };
   },
@@ -43,7 +42,7 @@ export default {
           locationId: this.locationToDelete.id})
           .then(
             () => {
-              console.log("asd")
+              
             },
             error => {
               this.loading = false;

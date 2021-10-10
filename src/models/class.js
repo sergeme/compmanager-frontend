@@ -17,9 +17,11 @@ export const UpdateClass = class UpdateClass {
 }
 
 export const ChangeClassStudent = class ChangeClassStudent {
-  constructor(id, studentId) {
+  constructor(id, studentId, firstName, lastName) {
     this.id = id;
     this.studentId = studentId;
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 }
 

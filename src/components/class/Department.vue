@@ -7,7 +7,10 @@
     </div>
     <div class="row">
       <div class="col-12">
-       <Courses :courses='department.courses' :departmentId='department.id' :locations='locations'/>
+       <Courses :courses='department.courses' 
+       :departmentId='department.id' 
+       :locations='locations' 
+       :classes="classes"/>
       </div>
     </div> 
     </b-card>
@@ -20,7 +23,8 @@ export default {
   name: 'Bereich',
   props: {
     department: Object,
-    locations: Array
+    locations: Array,
+    classes: Array
   },
   components: {
     Courses,

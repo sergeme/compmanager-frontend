@@ -11,15 +11,7 @@ class ClassService {
       });
   }
 
-  getClassesByLocationAndCourse(obj) {
-    return api
-      .post(classEndpoint + 'by-location-and-course', obj)
-      .then(response => {
-        return response.data;
-      });
-  }
-
-  addClass(classObj) {
+  addClasses(classObj) {
     return api
       .post(classEndpoint, classObj)
       .then(response => {

@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-12 pr-3">
         <Department v-for="(department, index) in departments" :key='index' 
-        :department='department' :locations='locations'/>
+        :department='department' :locations='locations' :classes="classes"/>
       </div>
     </div>
   </b-card>
@@ -21,19 +21,13 @@ export default {
   name: 'BereicheKlassen',
   props: {
     departments: Array,
-    locations: Array
-  },
-  data() {
-    return {
-      classes: [],
-      hasClasses:false,
-      isFetchingData: true,
-      newDepartmentPressed:false,
-      locationIds: this.locations.map(l => l.id)
-    };
+    locations: Array,
+    classes: Array,
   },
   components: {
     Department
+  },
+  mounted() {
   }
 }
 

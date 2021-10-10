@@ -34,13 +34,13 @@
             <b-dropdown-item :to="'/data/school'" exact-active-class="active">&nbsp;Schuldaten anzeigen</b-dropdown-item>
           </b-dropdown-group>
         </b-nav-item-dropdown>
-        <b-nav-item-dropdown v-if="showAdminPages" :toggle-class="{active: activateMenuItem('/users')}">
+        <!--<b-nav-item-dropdown v-if="showAdminPages" :toggle-class="{active: activateMenuItem('/users')}">
           <template #button-content>
             <font-awesome-icon icon="users" />
                 Benutzer
           </template>
           <b-dropdown-item :to="'/users'" exact-active-class="active">&nbsp;Benutzer auflisten</b-dropdown-item>
-        </b-nav-item-dropdown>
+        </b-nav-item-dropdown>-->
       </div>
 
       <div class="navbar-nav justify-content-end w-100">
@@ -55,7 +55,7 @@
             <font-awesome-icon icon="user" />
                 {{ currentUser.firstName }} {{ currentUser.lastName }}
           </template>
-          <b-dropdown-item :to="'/profile'" exact-active-class="active"><font-awesome-icon icon="id-badge" />&nbsp;Mein Profil</b-dropdown-item>
+          <!--<b-dropdown-item :to="'/profile'" exact-active-class="active"><font-awesome-icon icon="id-badge" />&nbsp;Mein Profil</b-dropdown-item>-->
           <b-dropdown-item href="#" @click.prevent="logOut"><font-awesome-icon icon="sign-out-alt" />&nbsp;LogOut</b-dropdown-item>
         </b-nav-item-dropdown>
       </div>

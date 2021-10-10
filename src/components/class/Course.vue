@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-12">
        <Locations :courseLocations='course.locations' :locations='locations'
-       :departmentId='departmentId' :courseId='course.id'/>
+       :departmentId='departmentId' :courseId='course.id' :classes="classes"/>
       </div>
     </div> 
     </b-card>
@@ -23,7 +23,8 @@ export default {
   props: {
     course: Object,
     departmentId: Number,
-    locations: Array
+    locations: Array,
+    classes: Array
   },
   data() {
     return {

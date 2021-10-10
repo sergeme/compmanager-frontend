@@ -8,7 +8,9 @@
     <div class="row">
       <div class="col-12">
         <Location v-for="(location, index) in courseLocations" 
-        :key='index' :departmentId='departmentId' :courseId='courseId' :location='location'/>
+        :key='index' :departmentId='departmentId'
+        :courseId='courseId' :location='location' 
+        :classes="classes"/>
       </div>
     </div>
   </b-card>
@@ -23,7 +25,8 @@ export default {
     courseId: Number,
     departmentId: Number,
     courseLocations: Array,
-    locations: Array
+    locations: Array,
+    classes: Array
   },
   components: {
     Location

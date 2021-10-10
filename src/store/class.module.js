@@ -1,16 +1,12 @@
 import ClassService from 'services/class.service';
 
+//ordered list by course/location
 var classes = [];
-var courses = [];
-
 
 export const schoolClass = {
   namespaced: true,
-  state: {
-    classes,
-    courses},
+  state: classes,
   actions: {
-    //classes
     getClasses({ commit }) {
       return ClassService.getClasses().then(
         classes => {
@@ -19,34 +15,18 @@ export const schoolClass = {
         },
         error => {
           commit('getClassesFailure');
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
-    getClassesByLocationAndCourse({ commit }, obj) {
-      return ClassService.getClassesByLocationAndCourse(obj).then(
+    addClasses({ commit }, obj) {
+      return ClassService.addClasses(obj.classes).then(
         classes => {
-          commit('getClassesByLocationAndCourseSuccess', {
-            locationId: obj.locationId,
-            courseId: obj.courseId,
-            classes: classes
-          });
+          commit('addClassesSuccess', classes);
           return Promise.resolve(classes);
         },
         error => {
-          commit('getClassesByLocationAndCourseFailure');
-          return Promise.resolve(error);
-        }
-      )
-    },
-    addClass({ commit }, newClass) {
-      return ClassService.addClass(newClass).then(
-        classObj => {
-          commit('addClassSuccess', classObj);
-          return Promise.resolve(classObj);
-        },
-        error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -57,7 +37,7 @@ export const schoolClass = {
           return Promise.resolve(classObj);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
@@ -68,64 +48,45 @@ export const schoolClass = {
           return Promise.resolve();
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
     //accounts / students
-    //existing -> add to course
-    addClassStudent({ commit }, newLocation) {
-      return ClassService.addClassStudent(newLocation.location).then(
-        location => {
-          commit('addClassStudentSuccess', {
-            classObjId: newLocation.classObjId,
-            courseId: newLocation.location.courseId,
-            location: location
-          });
-          return Promise.resolve(location);
+    //existing -> add to class
+    addClassStudent({ commit }, obj) {
+      return ClassService.addClassStudent(obj).then(
+        classObj => {
+          commit('changeClassStudentSuccess', classObj);
+          return Promise.resolve(classObj);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     },
-    //remove from course
-    deleteClassStudent({ commit }, deleteLocation) {
-      return ClassService.removeClassStudent({
-        courseId: deleteLocation.courseId,
-        locationId: deleteLocation.locationId
-      }).then(
-        () => {
-          commit('removeClassStudentSuccess', deleteLocation);
-          return Promise.resolve();
+    //remove from class
+    removeClassStudent({ commit }, obj) {
+      return ClassService.removeClassStudent(obj).then(
+        classObj => {
+          commit('changeClassStudentSuccess', classObj);
+          return Promise.resolve(classObj);
         },
         error => {
-          return Promise.resolve(error);
+          return Promise.reject(error);
         }
       )
     }
   },
   mutations: {
     //classes
-    getClassesSuccess(state, classes) {
-      state.classes = classes;
+    getClassesSuccess(state, obj) {
+      state.classes = obj;
     },
-    getClassesFailure(state) {
-      state.classes = null;
-    },
-    getClassesByLocationAndCourseSuccess(state, obj) {
-      var classes = obj.classes;
-      var location = { id: obj.locationId, classes: classes };
-      var course = {id: obj.courseId, locations: []};
-      course.locations.push(location);
-      state.courses[obj.courseId] = course;
-    },
-    getClassesByLocationAndCourseFailure(state) {
-      state.classes = null;
-    },
-    addClassesSuccess(state, classObj) {
-      classObj.forEach(function (item) {
-        state.classes.push(item);
+    addClassesSuccess(state, obj) {
+      obj.forEach(function (classObj)
+      {
+        state.classes.push(classObj)
       })
     },
     updateClassSuccess(state, classObj) {
@@ -136,15 +97,8 @@ export const schoolClass = {
       state.classes.splice(i, 1);
     },
     //students
-    addClassStudentSuccess(state) {
-      const classObj = state.classes.map(item => item.id).indexOf(location.classObjId);
-      const course = state.classes[classObj].courses.map(item => item.id).indexOf(location.courseId);
-      state.classes[classObj].courses[course].locations.push(location.location);
-      state.locations.push(location.location)
-
-    },
-    removeClassStudentSuccess() {
-      
+    changeClassStudentSuccess(state, obj) {
+      state.classes[state.classes.findIndex(d => d.id == obj.id)] = obj;
     }
   }
 };

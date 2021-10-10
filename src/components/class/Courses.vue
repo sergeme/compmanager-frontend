@@ -8,7 +8,7 @@
     <div class="row pb-0">
       <div class="col-12 pl-4">
         <Course v-for="(course, index) in courses" :key='index' :course='course'
-        :departmentId='departmentId' :locations='locations'/>
+        :departmentId='departmentId' :locations='locations' :classes="classes"/>
       </div>
     </div>
   </b-card>
@@ -22,7 +22,8 @@ export default {
   props: {
     courses: Array,
     departmentId: Number,
-    locations: Array
+    locations: Array,
+    classes: Array
   },
   data() {
     return {
