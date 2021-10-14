@@ -1,5 +1,5 @@
 <template>
-  <b-dropdown right size="sm" variant="light" class="btn-light rounded-right">
+  <b-dropdown :disabled="fetchingData || availableLocations.length < 1" right size="sm" variant="light" class="btn-light rounded-right">
     <template #button-content>
       <font-awesome-icon icon="map-marker-alt" />
       hinzufügen
@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       message: '',
+      fetchingData: true,
       newLocation: new NewLocation(this.courseId, ''),
       availableLocations: new Array() 
     };
@@ -61,12 +62,14 @@ export default {
       });
     },
     refreshAvailableLocations() {
+      this.fetchingData = true;
       var courseLocations = this.courseLocations;
       this.availableLocations = this.locations.filter(function(obj) {
         return !courseLocations.some(function(obj2) {
           return obj.id == obj2.id;
         })
       })
+      this.fetchingData = false;
     }
   },
   mounted() {
@@ -74,6 +77,10 @@ export default {
     this.refreshAvailableLocations()
     })
     eventBus.on("newLocationSubmitted", () => {
+      this.refreshAvailableLocations()
+    })
+    eventBus.on("locationRemoved", obj => {
+      console.log(obj)
       this.refreshAvailableLocations()
     })
   },

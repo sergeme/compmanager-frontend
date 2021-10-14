@@ -17,7 +17,7 @@
             <SelectBox :col='6' :values="classes" :label="'Klasse'" :submitted="submitted" v-if="locationSelected"/>
           </div>
           <div class="row">
-            <div class="form-group col-md-6">
+            <div class="col-md-6">
               <label for="Vorname">Vorname</label>
               <input
                 v-model="user.firstName"
@@ -30,7 +30,7 @@
                 {{ errors.first('Vorname') }}
               </div>
             </div>
-            <div class="form-group col-md-6">
+            <div class="col-md-6">
               <label for="Nachname">Nachname</label>
               <input
                 v-model="user.lastName"
@@ -45,7 +45,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="form-group col-md-12">
+            <div class="col-md-12">
               <label for="E-Mail">E-Mail</label>
               <input
                 v-model="user.email"
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="form-group col-md-6">
+            <div class="col-md-6">
               <label for="Passwort">Passwort</label>
               <input
                 v-model="user.password"
@@ -106,7 +106,7 @@
 <script>
 import { User } from 'models/user';
 import eventBus from 'helpers/eventbus';
-import SelectBox from 'components/registration/SelectBox.vue';
+import SelectBox from 'components/shared/SelectBox.vue';
 
 export default {
   name: 'Register',

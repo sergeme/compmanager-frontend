@@ -1,10 +1,9 @@
 <template>
-  <b-card no-body tag="section" class='border-0 m-0 mt-3'>
+  <b-card no-body tag="section" class='border-0 m-0 mt-1'>
       <div class="row">
       <div class="col-12">
         <span class="h5" v-if="!editCoursePressed">{{course.name}}</span>
       </div>
-
     </div>
     <div class="row">
       <div class="col-12">

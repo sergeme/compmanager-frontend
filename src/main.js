@@ -19,6 +19,7 @@ import {
   faIdBadge,
   faClipboard,
   faUsers,
+  faFile,
   faFileAlt,
   faUserGraduate,
   faChalkboardTeacher,
@@ -27,26 +28,29 @@ import {
   faTrashAlt,
   faEdit,
   faMapMarkerAlt,
+  faSave
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
-faHome,
-faUser,
-faUserPlus,
-faUserMinus,
-faSignInAlt,
-faSignOutAlt,
-faIdBadge,
-faClipboard,
-faUsers,
-faFileAlt,
-faUserGraduate,
-faChalkboardTeacher,
-faPlusCircle,
-faMinusCircle,
-faTrashAlt,
-faEdit,
-faMapMarkerAlt);
+  faHome,
+  faUser,
+  faUserPlus,
+  faUserMinus,
+  faSignInAlt,
+  faSignOutAlt,
+  faIdBadge,
+  faClipboard,
+  faUsers,
+  faFile,
+  faFileAlt,
+  faUserGraduate,
+  faChalkboardTeacher,
+  faPlusCircle,
+  faMinusCircle,
+  faTrashAlt,
+  faEdit,
+  faMapMarkerAlt,
+  faSave);
 
 
 Vue.config.productionTip = false;
@@ -57,7 +61,6 @@ Validator.extend('domain', domain, {});
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(BootstrapVue)
-// Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
 setupInterceptors(store);

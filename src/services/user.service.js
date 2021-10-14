@@ -6,12 +6,10 @@ class UserService {
 
   
   //departments
-  getStudents() {
-    return api
-      .get(accountEndpoint + 'students')
-      .then(response => {
-        return response.data;
-      });
+  async getStudents() {
+    const response = await api
+      .get(accountEndpoint + 'students');
+    return response.data;
   }
 
   getPublicContent() {

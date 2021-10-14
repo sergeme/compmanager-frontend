@@ -6,10 +6,10 @@ export const process = {
   namespaced: true,
   state: processes,
   actions: {
-    getProcess({ commit }) {
-      return ProcessService.getProcess().then(
+    getProcesses({ commit }) {
+      return ProcessService.getProcesses().then(
         processes => {
-          commit('getProcessSuccess', processes);
+          commit('getProcessesSuccess', processes);
           return Promise.resolve(processes);
         },
         error => {
@@ -52,7 +52,7 @@ export const process = {
     }
   },
   mutations: {
-    getProcesssSuccess(state, processes) {
+    getProcessesSuccess(state, processes) {
       state.processes = processes;
     },
     addProcessSuccess(state, process) {
@@ -60,7 +60,7 @@ export const process = {
     },
     updateProcessSuccess(state, process) {
       var index = state.processes.map(item => item.id).indexOf(process.id);
-      state.processes[index] = process;
+      state.processes.splice(index, 1, process);
     },
     deleteProcessSuccess(state, id) {
       var index = state.processes.map(item => item.id).indexOf(id);

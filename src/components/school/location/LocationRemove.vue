@@ -30,7 +30,7 @@ export default {
         departmentId: this.departmentId,
         courseId: this.courseId
         }).then(
-        () => { },
+        () => {},
         error => {
           this.loading = false;
           this.message =

@@ -76,8 +76,7 @@ export default {
       user: new User("", ""),
       submitted: false,
       loading: false,
-      message: "",
-      errors: this.$validator.errors,
+      message: ""
     };
   },
   computed: {

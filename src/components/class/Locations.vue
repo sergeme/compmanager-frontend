@@ -1,10 +1,5 @@
 <template>
-  <b-card no-body tag="section" class="bg-secondary border-0 mt-1 px-1 py-1">
-    <div class="row pb-0">
-      <div class="col-12">
-       <span class="h6 text-light font-weight-bold ml-2 mb-0 align-middle">Standorte</span>
-      </div>
-    </div>
+  <b-card no-body tag="section" class="bg-secondary border-0 mt-1 pr-1 py-0">
     <div class="row">
       <div class="col-12">
         <Location v-for="(location, index) in courseLocations" 

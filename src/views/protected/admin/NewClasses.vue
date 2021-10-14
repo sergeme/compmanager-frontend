@@ -5,13 +5,30 @@
         <h3 class="mb-0 pl-2">Neue Klassen erstellen</h3>
       </div>
     </div>
-    <div class="row px-2">
-      <SelectBox :col='4' :values="departments" :label="'Bereich'" />
-      <SelectBox :col='4' :values="courses" :label="'Lehrgang'" v-if="departmentSelected"/>
-      <SelectBox :col='4' :values="locations" :label="'Standort'" v-if="courseSelected"/>
+    <div class="row px-2 mt-3">
+      <SelectBox :col='4' :values="departments" :label="'Bereich'" name="Bereich" v-validate="'required'" :submitted="submitted" :validationErrors="errors"/>
+      <SelectBox :col='4' :values="courses" :label="'Lehrgang'" v-if="departmentSelected" name="Lehrgang" v-validate="'required'" :submitted="submitted" :validationErrors="errors"/>
+      <SelectBox :col='4' :values="locations" :label="'Standort'" v-if="courseSelected" name="Standort" v-validate="'required'" :submitted="submitted" :validationErrors="errors"/>
     </div>
-    <div class="row px-2" v-if="locationSelected">
-      <div class="form-group col-md-4">
+    <div v-if="submitted" class="row px-2">
+      <div class="col-md-4">
+        <div v-if="errors.has('Bereich')" class="alert alert-danger mb-0">
+          {{ errors.first('Bereich') }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div v-if="errors.has('Lehrgang')" class="alert alert-danger mb-0">
+          {{ errors.first('Lehrgang') }}
+        </div>
+      </div>
+       <div class="col-md-4">
+        <div v-if="errors.has('Standort')" class="alert alert-danger mb-0">
+          {{ errors.first('Standort') }}
+        </div>
+      </div>
+    </div>
+    <div class="row px-2 mt-3" v-if="locationSelected">
+      <div class="col-md-4">
         <label for="label">Startdatum</label>
         <b-form-datepicker 
         value-as-date 
@@ -21,11 +38,8 @@
         locale="de"
         name="Startdatum">
         </b-form-datepicker>
-        <div v-if="submitted && errors.has('Startdatum')" class="alert alert-danger">
-          {{ errors.first("Startdatum") }}
-        </div>
       </div>
-      <div class="form-group col-md-4">
+      <div class="col-md-4">
         <label for="label">Enddatum</label>
         <b-form-datepicker 
         value-as-date 
@@ -35,21 +49,27 @@
         locale="de"
         name="Enddatum">
         </b-form-datepicker>
-        <div v-if="submitted && errors.has('Enddatum')" class="alert alert-danger">
-          {{ errors.first("Enddatum") }}
+      </div>
+      <SelectBox :col='4' :values="curricula" :label="'Lehrplan'" v-if="locationSelected" name="Lehrplan" v-validate="'required'" :submitted="submitted"/>
+    </div>
+    <div v-if="submitted" class="row px-2">
+      <div class="col-md-4">
+        <div v-if="errors.has('Startdatum')" class="alert alert-danger mb-0">
+          {{ errors.first('Startdatum') }}
         </div>
       </div>
-      <div class="form-group col-md-4">
-        <label for="Lehrplan">Lehrplan</label>
-        <select v-model="curriculum" class="form-control" name="Lehrplan" v-validate="'required'">
-          <option value="1">Lehrplan</option>
-        </select>
-        <div v-if="submitted && errors.has('Lehrplan')" class="alert alert-danger">
-          {{ errors.first("Lehrplan") }}
+      <div class="col-md-4">
+        <div v-if="errors.has('Enddatum')" class="alert alert-danger mb-0">
+          {{ errors.first('Enddatum') }}
+        </div>
+      </div>
+       <div class="col-md-4">
+        <div v-if="errors.has('Lehrplan')" class="alert alert-danger mb-0">
+          {{ errors.first('Lehrplan') }}
         </div>
       </div>
     </div>
-    <div class="row px-2" v-if="locationSelected">
+    <div class="row px-2 mt-3" v-if="locationSelected">
       <div class="form-group col-md-8">
         <label for="label">Klassennamen</label>
         <b-form-textarea
@@ -81,13 +101,11 @@
         </div>
       </div>
     </div>
-
-
   </b-card>
 </template>
 
 <script>
-import SelectBox from 'components/registration/SelectBox.vue';
+import SelectBox from 'components/shared/SelectBox.vue';
 import eventBus from 'helpers/eventbus';
 import { NewClass } from 'models/class';
 
@@ -99,6 +117,7 @@ export default {
   data() {
     return {
       curriculum: 1,
+      curricula: [],
       startDate: new Date(),
       endDate: new Date(),
       submitted: false,
@@ -110,18 +129,19 @@ export default {
       departmentId: null,
       courseId: null,
       locationId: null,
+      curriculumId: null,
       departments: [],
       courses: [],
       locations: [],
       classes: "",
       message: '',
-      isFetchingData: true
+      isFetchingData: true,
     };
   },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
-    },
+    }
   },
   mounted() {
     if(this.loggedIn) {
@@ -145,11 +165,24 @@ export default {
           this.locationSelected = true;
           this.locationId = this.locations[object.index].id;
         }
+        if (object.value == 'Lehrplan') {
+          this.curriculumId = this.curricula[object.index].id;
+        }
       });
     }
   },
   methods: {
     fetchData() {
+      this.$store.dispatch('curriculum/getCurricula').then(
+        () => {
+          this.curricula = this.$store.state.curriculum.curricula;
+
+        },
+        error => {
+          this.message = (error.response && error.response.data) || error.message || error.toString();
+          console.log(JSON.stringify(error))
+        }
+      )
       this.$store.dispatch('school/getDepartments').then(
         () => {
           this.departments = this.$store.state.school.departments;
@@ -166,7 +199,7 @@ export default {
       var newClasses = [];
       var payload = {
         'courseId': this.courseId,
-        'curriculum': this.curriculum,
+        'curriculumId': this.curriculumId,
         'locationId': this.locationId,
         'classes': []
       }
@@ -174,7 +207,7 @@ export default {
         'startDate': this.startDate, 
         'endDate': this.endDate,
         'courseId': this.courseId,
-        'curriculum': this.curriculum,
+        'curriculumId': this.curriculumId,
         'locationId': this.locationId
       }
       this.$validator.validateAll().then(isValid => {
@@ -186,7 +219,7 @@ export default {
               params.startDate.toISOString(), 
               params.endDate.toISOString(),
               params.courseId,
-              params.curriculum,
+              params.curriculumId,
               params.locationId
               )
             newClasses.push(newClass);  

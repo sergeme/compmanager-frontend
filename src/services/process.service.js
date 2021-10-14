@@ -3,37 +3,29 @@ import api from "./api";
 const processEndpoint = 'processes/';
 
 class ProcessService {
-  getProcesses() {
-    return api
-      .get(processEndpoint)
-      .then(response => {
-        return response.data;
-      });
+  async getProcesses() {
+    const response = await api
+      .get(processEndpoint);
+    return response.data;
   }
 
   //processes
-  addProcess(process) {
-    return api
-      .post(processEndpoint, process)
-      .then(response => {
-        return response.data;
-      });
+  async addProcess(process) {
+    const response = await api
+      .post(processEndpoint, process);
+    return response.data;
   }
 
-  removeProcess(process) {
-    return api
-      .delete(processEndpoint + process)
-      .then(response => {
-        return response.data;
-      });
+  async deleteProcess(process) {
+    const response = await api
+      .delete(processEndpoint + process);
+    return response.data;
   }
 
-  updateProcess(process) {
-    return api
-      .put(processEndpoint, process)
-      .then(response => {
-        return response.data;
-      });
+  async updateProcess(process) {
+    const response = await api
+      .put(processEndpoint, process);
+    return response.data;
   }
 }
 

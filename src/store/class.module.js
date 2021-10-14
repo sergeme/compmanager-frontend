@@ -8,7 +8,7 @@ export const schoolClass = {
   state: classes,
   actions: {
     getClasses({ commit }) {
-      return ClassService.getClasses().then(
+       return ClassService.getClasses().then(
         classes => {
           commit('getClassesSuccess', classes);
           return Promise.resolve(classes);
@@ -84,10 +84,7 @@ export const schoolClass = {
       state.classes = obj;
     },
     addClassesSuccess(state, obj) {
-      obj.forEach(function (classObj)
-      {
-        state.classes.push(classObj)
-      })
+      state.classes = obj;
     },
     updateClassSuccess(state, classObj) {
       state.classes[state.classes.findIndex(d => d.id == classObj.id)].name = classObj.name;

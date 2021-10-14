@@ -16,6 +16,7 @@
 
 <script>
 import { ChangeClassStudent } from 'models/class';
+import eventBus from "helpers/eventbus";
 export default {
   name: 'StudentRemoveDropdown',
   data() {
@@ -46,6 +47,7 @@ export default {
       .then(
         response => {
           this.newClass = response;
+          eventBus.dispatch("studentRemoved", this.newClass)
         },
         error => {
           console.log(error)
@@ -58,6 +60,14 @@ export default {
     }
   },
   mounted() {
+    eventBus.on("studentAdded", obj => {
+      if(obj.id == this.classObj.id) {
+        this.newClass = obj
+      }
+    })
   },
+  beforeDestroy() {
+    eventBus.remove("studentAdded");
+  }
 }
 </script>

@@ -17,30 +17,27 @@
             <b-dropdown-item :to="'/competences/shared'" exact-active-class="active">&nbsp;Freigegebene Kompetenzen auflisten</b-dropdown-item>
           </b-dropdown-group>
         </b-nav-item-dropdown>
-        <b-nav-item-dropdown v-if="showAdminPages" :toggle-class="{active: activateMenuItem('/data')}">
+        <b-nav-item-dropdown v-if="showAdminPages || showTeacherPages" :toggle-class="{active: activateMenuItem('/data')}">
           <template #button-content>
             <font-awesome-icon icon="file-alt" />
                 Anwendungsdaten
           </template>
           <b-dropdown-group id="dropdown-group-3" header="Klassen">
-            <b-dropdown-item :to="'/data/classes/new'" exact-active-class="active">&nbsp;Klassen erstellen</b-dropdown-item>
+            <b-dropdown-item v-if="showAdminPages" :to="'/data/classes/new'" exact-active-class="active">&nbsp;Klassen erstellen</b-dropdown-item>
             <b-dropdown-item :to="'/data/classes'" exact-active-class="active">&nbsp;Klassen auflisten</b-dropdown-item>
           </b-dropdown-group>
-          <b-dropdown-group id="dropdown-group-1" header="Lehrpläne">
-            <b-dropdown-item :to="'/data/curriculum'" exact-active-class="active">&nbsp;Lehrplan erstellen</b-dropdown-item>
-            <b-dropdown-item :to="'/data/curricula'" exact-active-class="active">&nbsp;Lehrpläne auflisten</b-dropdown-item>
-          </b-dropdown-group>
-          <b-dropdown-group id="dropdown-group-2" header="Schuldaten">
-            <b-dropdown-item :to="'/data/school'" exact-active-class="active">&nbsp;Schuldaten anzeigen</b-dropdown-item>
+          <b-dropdown-group id="dropdown-group-1" header="Stammdaten">
+            <b-dropdown-item v-if="showAdminPages" :to="'/data/curricula'" exact-active-class="active">&nbsp;Lehrpläne bearbeiten</b-dropdown-item>
+            <b-dropdown-item v-if="showAdminPages" :to="'/data/school'" exact-active-class="active">&nbsp;Schuldaten bearbeiten</b-dropdown-item>
           </b-dropdown-group>
         </b-nav-item-dropdown>
-        <!--<b-nav-item-dropdown v-if="showAdminPages" :toggle-class="{active: activateMenuItem('/users')}">
+        <b-nav-item-dropdown v-if="showAdminPages" :toggle-class="{active: activateMenuItem('/users')}">
           <template #button-content>
             <font-awesome-icon icon="users" />
                 Benutzer
           </template>
           <b-dropdown-item :to="'/users'" exact-active-class="active">&nbsp;Benutzer auflisten</b-dropdown-item>
-        </b-nav-item-dropdown>-->
+        </b-nav-item-dropdown>
       </div>
 
       <div class="navbar-nav justify-content-end w-100">
@@ -63,7 +60,7 @@
     <div class="flex-grow-1 h-100">
       <div class="d-flex flex-column h-100">
         <div class="flex-grow-1 overflow-auto container bg-light" style="height: 100px;"> 
-          <router-view />{{test}}
+          <router-view />
         </div>
       </div>
     </div>
@@ -83,9 +80,6 @@ export default {
     };
   },
   computed: {
-    test() {
-      return this.$store.state.departments;
-    },
     currentUser() {
       return this.$store.state.auth.user;
     },

@@ -1,10 +1,11 @@
 import CurriculumService from 'services/curriculum.service';
 
 var curricula = []
+var processTypes = []
 
 export const curriculum = {
   namespaced: true,
-  state: curricula,
+  state: {curricula, processTypes},
   actions: {
     getCurricula({ commit }) {
       return CurriculumService.getCurricula().then(
@@ -50,6 +51,17 @@ export const curriculum = {
         }
       )
     },
+    getProcessTypes({ commit }) {
+      return CurriculumService.getProcessTypes().then(
+        processTypes => {
+          commit('getProcessTypesSuccess', processTypes);
+          return Promise.resolve(processTypes);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      )
+    },
     createProcessType({ commit }, obj) {
       return CurriculumService.createProcessType(obj).then(
         processType => {
@@ -82,7 +94,7 @@ export const curriculum = {
       )
     },
     deleteProcessType({ commit }, obj) {
-      return CurriculumService.deleteProcessType(obj.id).then(
+      return CurriculumService.deleteProcessType(obj.processTypeId).then(
         response => {
           commit('deleteProcessTypeSuccess',obj);
           return Promise.resolve(response);
@@ -123,12 +135,16 @@ export const curriculum = {
       state.curricula.push(curriculum);
     },
     updateCurriculumSuccess(state, curriculum) {
-      var index = state.curricula.map(item => item.id).indexOf(curriculum.id);
-      state.curricula[index] = curriculum;
+      const index = state.curricula.findIndex(c => c.id == curriculum.id)
+      state.curricula.splice(index, 1, curriculum)
+
     },
     deleteCurriculumSuccess(state, id) {
       var index = state.curricula.map(item => item.id).indexOf(id);
       state.curricula.splice(index, 1);
+    },
+    getProcessTypesSuccess(state, processTypes) {
+      state.processTypes = processTypes;
     },
     createProcessTypeSuccess(state, obj) {
       var index = state.curricula.map(item => item.id).indexOf(obj.curriculumId);
@@ -140,8 +156,12 @@ export const curriculum = {
     },
     deleteProcessTypeSuccess(state, obj) {
       var curriculum = state.curricula.map(item => item.id).indexOf(obj.curriculumId);
-      var processType = state.curricula[curriculum].processTypes.map(item => item.id).indexOf(obj.id);
-      state.curricula[curriculum].processTypes.splice(processType, 1);
+      var curriculumProcessType = state.curricula[curriculum].processTypes.map(item => item.id).indexOf(obj.processTypeId);
+      var processType = state.processTypes.map(item => item.id).indexOf(obj.processTypeId);
+      if (curriculumProcessType !== -1) {
+        state.curricula[curriculum].processTypes.splice(curriculumProcessType, 1);
+      }
+      state.processTypes.splice(processType, 1)
 
     }
   }

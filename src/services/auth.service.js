@@ -4,19 +4,16 @@ import TokenService from "./token.service";
 const accountEndpoint = 'accounts';
 
 class AuthService {
-  login(user) {
-    return api
-      .post(accountEndpoint+'/authenticate', {
+  async login(user) {
+    const response = await api
+      .post(accountEndpoint + '/authenticate', {
         email: user.email,
         password: user.password
-      }, {withCredentials: true})
-      .then(response => {
-        if (response.data.jwtToken) {
-          TokenService.setUser(response.data);
-        }
-
-        return response.data;
-      });
+      }, { withCredentials: true });
+    if (response.data.jwtToken) {
+      TokenService.setUser(response.data);
+    }
+    return response.data;
   }
 
   logout() {
@@ -24,7 +21,7 @@ class AuthService {
   }
 
   register(user) {
-    return api.post(accountEndpoint+'/register', {
+    api.post(accountEndpoint+'/register', {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,

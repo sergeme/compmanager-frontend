@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from 'views/Home.vue';
+import Home from 'views/public/Home.vue';
 import Login from 'views/public/Login.vue';
 import Register from 'views/public/Register.vue';
 import Verify from 'views/public/Verify.vue';
@@ -45,13 +45,19 @@ export const router = new Router({
     {
       path: '/profile',
       // lazy-loaded
-      component: () => import('views/Home.vue')
+      component: () => import('views/public/Home.vue')
     },
     {
       path: '/data/school',
       name: 'school',
       // lazy-loaded
       component: () => import('views/protected/admin/School.vue')
+    },
+    {
+      path: '/data/curricula',
+      name: 'curricula',
+      // lazy-loaded
+      component: () => import('views/protected/admin/Curricula.vue')
     },
     {
       path: '/data/classes',

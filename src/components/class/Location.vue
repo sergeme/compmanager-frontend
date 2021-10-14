@@ -1,5 +1,5 @@
 <template>
-  <b-card no-body tag="section" class='border-0 p-1 mt-1 ml-2'>
+  <b-card no-body tag="section" class='border-0 p-1 my-1 ml-1'>
     <div class="row">
       <div class="col-12">
         <span class="h6 ml-1 mb-0 align-middle">{{location.name}}</span>
@@ -15,6 +15,7 @@
 
 <script>
 import Classes from './Classes.vue';
+import eventBus from "helpers/eventbus";
 
 export default {
   name: 'Standort',
@@ -40,6 +41,9 @@ export default {
   },
   mounted() {
     this.filterData();
+    eventBus.on("classDeleted", () => {
+      this.filterData();
+    })
   },
   computed: {
     loggedIn() {

@@ -152,7 +152,6 @@ export const school = {
     },
     //remove entirely
     deleteLocation({ commit }, deleteLocation) {
-      console.log(JSON.stringify(deleteLocation))
       return SchoolService.deleteLocation(deleteLocation.locationId).then(
         () => {commit('deleteLocationSuccess', {
           courseId: deleteLocation.courseId,

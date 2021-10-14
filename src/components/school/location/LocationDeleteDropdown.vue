@@ -1,11 +1,11 @@
 <template>
-  <b-dropdown right size="sm" variant="light" class="btn-light rounded-right">
+  <b-dropdown :disabled="locations.length < 1" size="sm" variant="light" class="btn-light rounded-right">
     <b-modal :id='"modal-"+courseId' title="Standort entfernen?" @ok='deleteLocation()'>
       Bist du sicher, dass du den Standort <strong>{{locationToDelete.name}}</strong> entfernen willst? Er wird dann bei allen Lehrgängen gelöscht! 
     </b-modal>
     <template #button-content>
       <font-awesome-icon icon="map-marker-alt" />
-      entfernen
+      löschen
     </template>
     <b-dropdown-item v-for="(item, index) in locations" :key='index' class='small' v-b-modal="'modal-'+courseId" @click='setLocationToDelete(item)'>{{item.name}}</b-dropdown-item>
   </b-dropdown>
@@ -23,9 +23,6 @@ export default {
     courseId: Number,
     departmentId: Number,
     locations: Array,
-  },
-  watch: {
-
   },
   components: {
   },
