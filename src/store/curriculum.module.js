@@ -77,10 +77,7 @@ export const curriculum = {
       )
     },
     updateProcessType({ commit }, obj) {
-      return CurriculumService.updateProcessType({
-        id: obj.id,
-        name: obj.name
-      }).then(
+      return CurriculumService.updateProcessType(obj.editProcessType).then(
         processType => {
           commit('updateProcessTypeSuccess', {
             curriculumId: obj.curriculumId,
@@ -149,14 +146,22 @@ export const curriculum = {
     createProcessTypeSuccess(state, obj) {
       var index = state.curricula.map(item => item.id).indexOf(obj.curriculumId);
       state.curricula[index].processTypes.push(obj.processType);
+      state.processTypes.push(obj.processType);
     },
     updateProcessTypeSuccess(state, obj) {
-      var index = state.curricula.map(item => item.id).indexOf(obj.curriculumId);
-      state.curricula[index].processTypes[obj.id].name = obj.name;
+      var processType = state.processTypes.map(item => item.id).indexOf(obj.processType.id)
+      state.processTypes.splice(processType, 1, obj.processType)
+      state.curricula.forEach(function (curriculum, index, arr) {
+        var curriculumProcessType = curriculum.processTypes.map(item => item.id).indexOf(obj.processType.id);
+        if (curriculumProcessType !== -1) {
+        arr[index].processTypes.splice(curriculumProcessType, 1, obj.processType);
+      }
+      })
     },
     deleteProcessTypeSuccess(state, obj) {
       var curriculum = state.curricula.map(item => item.id).indexOf(obj.curriculumId);
-      var curriculumProcessType = state.curricula[curriculum].processTypes.map(item => item.id).indexOf(obj.processTypeId);
+      var curriculumProcessType = state.curricula[curriculum]
+        .processTypes.map(item => item.id).indexOf(obj.processTypeId);
       var processType = state.processTypes.map(item => item.id).indexOf(obj.processTypeId);
       if (curriculumProcessType !== -1) {
         state.curricula[curriculum].processTypes.splice(curriculumProcessType, 1);

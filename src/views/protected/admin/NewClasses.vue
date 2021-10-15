@@ -143,13 +143,13 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     }
   },
-  mounted() {
+  async mounted() {
     if(this.loggedIn) {
       var year = this.startDate.getFullYear();
       var month = this.startDate.getMonth();
       var day = this.startDate.getDate();
       this.endDate = new Date(year+2, month, day),
-      this.fetchData();
+      await this.fetchData();
       eventBus.on('valueSelected', (object) => {
         if (object.value == 'Bereich') {
           this.courses = this.departments[object.index].courses;
@@ -172,8 +172,8 @@ export default {
     }
   },
   methods: {
-    fetchData() {
-      this.$store.dispatch('curriculum/getCurricula').then(
+    async fetchData() {
+      await this.$store.dispatch('curriculum/getCurricula').then(
         () => {
           this.curricula = this.$store.state.curriculum.curricula;
 
@@ -183,7 +183,7 @@ export default {
           console.log(JSON.stringify(error))
         }
       )
-      this.$store.dispatch('school/getDepartments').then(
+      await this.$store.dispatch('school/getDepartments').then(
         () => {
           this.departments = this.$store.state.school.departments;
           //begin rendering only if all data has been received

@@ -51,8 +51,10 @@ export default {
     }
   },
   mounted() {
-    eventBus.on("editProcessTypeSubmitted", (id) => {
-      if(this.processType.id == id) { this.editProcessTypePressed = !this.editProcessTypePressed; }
+    eventBus.on("editProcessTypeSubmitted", (obj) => {
+      if(this.processType.id == obj.processTypeId && this.curriculumId == obj.curriculumId) { 
+        this.editProcessTypePressed = !this.editProcessTypePressed; 
+      }
     });
   },
   beforeDestroy() {

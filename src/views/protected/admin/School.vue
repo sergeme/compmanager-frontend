@@ -28,14 +28,14 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     },
   },
-  mounted() {
+  async mounted() {
     if(this.loggedIn) {
-      this.fetchData();
+      await this.fetchData();
     }
   },
   methods: {
-    fetchData() {
-      this.$store.dispatch('school/getDepartments').then(
+    async fetchData() {
+      await this.$store.dispatch('school/getDepartments').then(
         () => {
           this.departments = this.$store.state.school.departments;
         },
@@ -43,7 +43,7 @@ export default {
           this.message = (error.response && error.response.data) || error.message || error.toString();
         }
       )
-      this.$store.dispatch('school/getLocations').then(
+      await this.$store.dispatch('school/getLocations').then(
         () => {
           this.locations = this.$store.state.school.locations;
           //begin rendering only if all data has been received

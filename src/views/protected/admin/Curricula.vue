@@ -29,14 +29,14 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     },
   },
-  mounted() {
+  async mounted() {
     if(this.loggedIn) {
-      this.fetchData();
+      await this.fetchData();
     }
   },
   methods: {
-    fetchData() {
-      this.$store.dispatch('curriculum/getCurricula').then(
+    async fetchData() {
+      await this.$store.dispatch('curriculum/getCurricula').then(
         () => {
           this.curricula = this.$store.state.curriculum.curricula;
         },
@@ -44,7 +44,7 @@ export default {
           this.message = (error.response && error.response.data) || error.message || error.toString();
         }
       )
-      this.$store.dispatch('curriculum/getProcessTypes').then(
+      await this.$store.dispatch('curriculum/getProcessTypes').then(
         () => {
           this.processTypes = this.$store.state.curriculum.processTypes;
         },
@@ -52,7 +52,7 @@ export default {
           this.message = (error.response && error.response.data) || error.message || error.toString();
         }
       )
-      this.$store.dispatch('process/getProcesses').then(
+      await this.$store.dispatch('process/getProcesses').then(
         () => {
           this.processes = this.$store.state.process.processes;
           //begin rendering only if all data has been received

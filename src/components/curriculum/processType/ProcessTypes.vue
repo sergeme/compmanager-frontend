@@ -61,8 +61,10 @@ export default {
     }
   },
   mounted() {
-    eventBus.on("newProcessTypeSubmitted", (id) => {
-      if(this.curriculumId == id) { this.newProcessTypePressed = !this.newProcessTypePressed;}
+    eventBus.on("newProcessTypeSubmitted", (curriculumId) => {
+      if(this.curriculum.id == curriculumId) { 
+        this.newProcessTypePressed = !this.newProcessTypePressed;
+      }
     });
     this.$store.dispatch('course/getCourses').then(
       () => {

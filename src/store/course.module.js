@@ -21,7 +21,7 @@ export const course = {
   mutations: {
     //classes
     getCoursesSuccess(state, obj) {
-      state.classes = obj;
+      state.courses = obj;
     }
   }
 };

@@ -68,12 +68,24 @@ export default {
         this.refreshAvailableProcessTypes();
        }
     });
+    eventBus.on("newProcessTypeSubmitted", () => {
+      { 
+        this.refreshAvailableProcessTypes();
+      }
+    });
+    eventBus.on("editProcessTypeSubmitted", () => {
+      { 
+        this.refreshAvailableProcessTypes();
+      }
+    });
     eventBus.on("processTypeDeleted", () => {
       this.refreshAvailableProcessTypes();
     });
   },
   beforeDestroy() {
     eventBus.remove("processTypeRemoved");
+    eventBus.remove("newProcessTypeSubmitted");
+    eventBus.remove("editProcessTypeSubmitted");
     eventBus.remove("processTypeDeleted");
   }
 }
