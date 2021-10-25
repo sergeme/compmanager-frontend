@@ -48,6 +48,24 @@ export const router = new Router({
       component: () => import('views/public/Home.vue')
     },
     {
+      path: '/competences',
+      name: 'competences',
+      // lazy-loaded
+      component: () => import('views/protected/student/Competences.vue')
+    },
+    {
+      path: '/competences/profile',
+      name: 'competenceprofile',
+      // lazy-loaded
+      component: () => import('views/protected/student/CompetenceProfile.vue')
+    },
+    {
+      path: '/competences/export',
+      name: 'competenceexport',
+      // lazy-loaded
+      component: () => import('views/protected/student/DataExport.vue')
+    },
+    {
       path: '/data/school',
       name: 'school',
       // lazy-loaded

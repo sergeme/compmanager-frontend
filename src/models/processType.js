@@ -7,9 +7,9 @@ export const NewProcessType = class NewProcessType {
 }
 
 export const ProcessType = class ProcessType {
-  constructor(id, courseId, name) {
+  constructor(id, name, courseId) {
     this.id = id;
-    this.courseId = courseId;
     this.name = name;
+    this.courseId = courseId;
   }
 }

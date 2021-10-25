@@ -31,7 +31,6 @@ export default {
           eventBus.dispatch("classDeleted", this.newClass)
         },
         error => {
-          console.log(error)
           this.message =
             (error.response && error.response.data) ||
             error.message ||

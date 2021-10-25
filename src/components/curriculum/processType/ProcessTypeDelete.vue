@@ -1,7 +1,7 @@
 <template>
   <b-dropdown :disabled="processTypes.length < 1" size="sm" variant="secondary" class="btn-light rounded-right">
-    <b-modal :id='"modaldeleteprocesstype-"+curriculumId' title="Standort entfernen?" @ok='deleteProcessType()'>
-      Bist du sicher, dass du den Prozesstyp <strong>{{processTypeToDelete.name}}</strong> entfernen willst? Er wird dann bei allen Lehrplänen gelöscht! 
+    <b-modal :id='"modaldeleteprocesstype-"+curriculumId' title="Prozesstyp entfernen?" @ok='deleteProcessType()'>
+      Bist du sicher, dass du den Prozesstyp <strong>{{deleteProcessTypeName}}</strong> entfernen willst? Er wird dann bei allen Lehrplänen gelöscht! 
     </b-modal>
     <template #button-content>
       <font-awesome-icon icon="file-alt" />
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       message: '',
+      deleteProcessTypeName: null,
       processTypeToDelete: new ChangeCurriculumProcessType(this.curriculumId, '')
     };
   },
@@ -29,6 +30,7 @@ export default {
   },
   methods: {
     setProcessTypeToDelete(item) {
+      this.deleteProcessTypeName = item.name;
       this.processTypeToDelete.processTypeId=item.id;
     },
     deleteProcessType() {

@@ -91,7 +91,13 @@
           </div>
           <div class="row">
             <div class="form-group col-md-6 mb-3">
-              <button class="btn btn-primary ">Registrieren</button>
+              <button class="btn btn-primary" :disabled="loading">
+                <span
+                  v-show="loading"
+                  class="spinner-border spinner-border-sm"
+                ></span>
+                <span>Registrieren</span>
+              </button>
             </div>
           </div>
         </div>
@@ -113,6 +119,7 @@ export default {
   data() {
     return {
       user: new User('', '', '', '', '', true, this.classId),
+      loading: false,
       isFetchingData: true,
       classId: 0,
       submitted: false,
@@ -165,8 +172,12 @@ export default {
     handleRegister() {
       this.message = '';
       this.submitted = true;
+      this.loading = true;
       this.$validator.validate().then((isValid) => {
-        if (isValid) {
+        if (!isValid) {
+          this.loading = false;
+        }
+        else {
           this.$store.dispatch('auth/register', this.user).then(
             (data) => {
               this.message = data.message;
@@ -175,7 +186,8 @@ export default {
             (error) => {
               this.message =
                 (error.response && error.response.data) || error.message || error.toString();
-              this.successful = false;
+                this.successful = false;
+                this.loading = false;
             }
           );
         }

@@ -79,8 +79,7 @@ export default {
     eventBus.on("newLocationSubmitted", () => {
       this.refreshAvailableLocations()
     })
-    eventBus.on("locationRemoved", obj => {
-      console.log(obj)
+    eventBus.on("locationRemoved", () => {
       this.refreshAvailableLocations()
     })
   },

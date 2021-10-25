@@ -1,8 +1,8 @@
 <template>
   <b-card no-body tag="section" class="border-0 mt-1 px-1 py-1">
     <div class="row mb-1pb-0">
-      <div class="col-9">
-        <span class="h6 font-weight-bold text-dark ml-2 mb-0">Lehrgänge</span>
+      <div class="col-9 mb-1">
+        <span class="h6 font-weight-bold text-dark ml-1 mb-0 align-middle">Lehrgänge</span>
       </div>
       <div class="col-3 text-right">
         <b-button v-show="!newCoursePressed" size="sm" v-on:click="toggle()">

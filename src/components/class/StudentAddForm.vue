@@ -64,7 +64,6 @@ export default {
           this.value = '';
         },
         error => {
-          console.log(error)
           this.message =
             (error.response && error.response.data) ||
             error.message ||
@@ -91,7 +90,6 @@ export default {
           this.refreshAvailableStudents()
         },
         error => {
-          console.log(error)
           this.message =
             (error.response && error.response.data) ||
             error.message ||

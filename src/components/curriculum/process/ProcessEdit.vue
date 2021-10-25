@@ -1,5 +1,5 @@
 <template>
-  <b-card no-body tag="main" class='border-0 p-1 mt-1 ml-2'>
+  <b-card no-body tag="main" class='border-0 p-1 mt-1 ml-0'>
     <div class="row">
       <div class="col-8">
         <b-input size="sm" v-model="editedProcess.name" class></b-input>

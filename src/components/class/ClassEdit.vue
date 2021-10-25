@@ -41,7 +41,6 @@ export default {
           eventBus.dispatch("classUpdated", this.newClass.id)
         },
         error => {
-          console.log(error)
           this.message =
             (error.response && error.response.data) ||
             error.message ||

@@ -53,7 +53,6 @@ class CurriculumService {
   }
 
   async addProcessType(obj) {
-    console.log(JSON.stringify(obj))
     const response = await api
       .put(curriculumEndpoint + 'add-processtype', obj);
     return response.data;

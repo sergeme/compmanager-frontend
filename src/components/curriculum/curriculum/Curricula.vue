@@ -2,7 +2,7 @@
   <b-card no-body tag="section" class="border-0 mt-1 p-2">
     <div class="row">
       <div class="col-9">
-        <h5>Lehrpläne</h5>
+        <span class="h5 align-middle">Lehrpläne</span>
       </div>
       <div class="col-3 text-right pr-3 pb-1">
         <b-button v-show="!newCurriculumPressed" size="sm" v-on:click="toggle()">

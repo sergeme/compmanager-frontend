@@ -2,7 +2,7 @@
   <b-card no-body tag="section" class="border-0 mt-1 px-1 py-1">
     <div class="row mb-1pb-0">
       <div class="col-7">
-        <span class="h6 font-weight-bold text-dark ml-2 mb-0">Prozesstypen</span>
+        <span class="h6 font-weight-bold text-dark ml-1 mb-0 align-middle">Prozesstypen</span>
       </div>
       <div class="col-5 text-right">
 

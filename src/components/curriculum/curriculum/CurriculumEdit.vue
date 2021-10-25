@@ -47,7 +47,6 @@ export default {
               eventBus.dispatch("editCurriculumSubmitted", this.curriculum.id)
             },
             error => {
-              console.log(error)
               this.loading = false;
               this.message =
                 (error.response && error.response.data) ||

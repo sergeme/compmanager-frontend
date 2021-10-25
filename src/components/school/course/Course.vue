@@ -1,8 +1,8 @@
 <template>
   <b-card no-body tag="section" class='border-0 m-0 mt-3'>
       <div class="row">
-      <div class="col-8 ">
-        <span class="h5" v-if="!editCoursePressed">{{course.name}}</span>
+      <div class="col-8">
+        <span class="h5 align-middle" v-if="!editCoursePressed">{{course.name}}</span>
         <CourseEdit v-if="editCoursePressed" :course='course' :departmentId="departmentId"/>
       </div>
       <div class="col-4 text-right align-items-center">

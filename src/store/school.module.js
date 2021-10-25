@@ -246,8 +246,6 @@ export const school = {
         })
       })
       const location = state.locations.map(item => item.id).indexOf(editLocation.location.id);
-      console.log(editLocation.location.id)
-      console.log(state.locations.map(item => item.id))
       state.locations.splice(location, 1);
     },
     deleteCourseLocationSuccess(state, deleteLocation) {

@@ -1,5 +1,5 @@
 <template>
-  <b-card v-if="!isFetchingData" no-body tag="main" class="my-3 p-2">
+  <b-card v-if="!isFetchingData && auth.hasRole(roles.admin)" no-body tag="main" class="my-3 p-2">
     <div class="row">
       <div class="col-12">
         <h3 class="mb-0 pl-2">Neue Klassen erstellen</h3>
@@ -138,6 +138,11 @@ export default {
       isFetchingData: true,
     };
   },
+  props: {
+    auth: Object,
+    currentUser: Object,
+    roles: Object
+  },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
@@ -180,7 +185,7 @@ export default {
         },
         error => {
           this.message = (error.response && error.response.data) || error.message || error.toString();
-          console.log(JSON.stringify(error))
+
         }
       )
       await this.$store.dispatch('school/getDepartments').then(

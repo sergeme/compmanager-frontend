@@ -68,6 +68,7 @@
 
 <script>
 import { User } from "models/user";
+import eventBus from "helpers/eventbus";
 
 export default {
   name: "Login",
@@ -102,6 +103,7 @@ export default {
         if (this.user.email && this.user.password) {
           this.$store.dispatch("auth/login", this.user).then(
             () => {
+              eventBus.dispatch("loggedIn");
               this.$router.push("/profile");
             },
             error => {

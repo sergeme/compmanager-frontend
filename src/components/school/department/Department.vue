@@ -2,7 +2,7 @@
   <b-card no-body tag="section" class='bg-secondary mb-4 px-1 py-1'>
     <div class="row">
       <div class="col-8">
-        <span class="h5 font-weight-bold text-light pl-1" v-if="!editDepartmentPressed">{{department.name}}</span>
+        <span class="h5 font-weight-bold text-light pl-1 align-middle" v-if="!editDepartmentPressed">{{department.name}}</span>
         <DepartmentEdit v-if="editDepartmentPressed" :department='department'/>
       </div>
       <div class="col-4 text-right align-items-center">

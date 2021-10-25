@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="h-100 d-flex flex-column">
+  <div v-if="!isFetchingData" id="app" class="h-100 d-flex flex-column">
     <nav class="navbar navbar-expand navbar-dark bg-dark container static-top">
       <router-link to="/" class="navbar-brand mx-3" >Kompetenz-Manager</router-link>
       <div v-if="currentUser" class="navbar-nav justify-content-left w-100">
@@ -9,12 +9,12 @@
                 Kompetenzen
           </template>
           <b-dropdown-group v-if="showStudentPages" id="dropdown-group-student">
-            <b-dropdown-item :to="'/competences'" exact-active-class="active">&nbsp;Kompetenzen auflisten</b-dropdown-item>
+            <b-dropdown-item :to="'/competences'" exact-active-class="active">&nbsp;Meine Kompetenzen</b-dropdown-item>
             <b-dropdown-item :to="'/competences/profile'" exact-active-class="active">&nbsp;Kompetenzprofil erstellen</b-dropdown-item>
             <b-dropdown-item :to="'/competences/export'" exact-active-class="active">&nbsp;Kompetenzdaten exportieren</b-dropdown-item>
           </b-dropdown-group>
           <b-dropdown-group v-if="showTeacherPages" id="dropdown-group-teacher">
-            <b-dropdown-item :to="'/competences/shared'" exact-active-class="active">&nbsp;Freigegebene Kompetenzen auflisten</b-dropdown-item>
+            <b-dropdown-item :to="'/competences/shared'" exact-active-class="active" disabled>&nbsp;Freigegebene Kompetenzen</b-dropdown-item>
           </b-dropdown-group>
         </b-nav-item-dropdown>
         <b-nav-item-dropdown v-if="showAdminPages || showTeacherPages" :toggle-class="{active: activateMenuItem('/data')}">
@@ -31,7 +31,7 @@
             <b-dropdown-item v-if="showAdminPages" :to="'/data/school'" exact-active-class="active">&nbsp;Schuldaten bearbeiten</b-dropdown-item>
           </b-dropdown-group>
         </b-nav-item-dropdown>
-        <b-nav-item-dropdown v-if="showAdminPages" :toggle-class="{active: activateMenuItem('/users')}">
+        <b-nav-item-dropdown v-if="showAdminPages" :toggle-class="{active: activateMenuItem('/users')}" disabled>
           <template #button-content>
             <font-awesome-icon icon="users" />
                 Benutzer
@@ -59,8 +59,8 @@
     </nav>
     <div class="flex-grow-1 h-100">
       <div class="d-flex flex-column h-100">
-        <div class="flex-grow-1 overflow-auto container bg-light" style="height: 100px;"> 
-          <router-view />
+        <div class="flex-grow-1 overflow-auto container" style="height: 100px;"> 
+          <router-view :auth='auth' :currentUser='currentUser' :roles='roles'/>
         </div>
       </div>
     </div>
@@ -70,40 +70,25 @@
 </template>
 
 <script>
-import { roles } from 'models/roles'
+import { Authorization } from 'helpers/auth';
+import { roles } from 'models/roles';
 import eventBus from "helpers/eventbus";
 
 export default {
   data() {
     return {
-      
+      auth: new Authorization(),
+      isFetchingData: true,
+      showAdminPages: false,
+      showTeacherPages: false,
+      showStudentPages: false,
+      roles: null
     };
   },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
     },
-    showAdminPages() {
-      if (this.currentUser && this.currentUser.role) {
-        return roles.admin & this.currentUser.role;
-      }
-
-      return false;
-    },
-    showTeacherPages() {
-      if (this.currentUser && this.currentUser.role) {
-        return roles.teacher & this.currentUser.role;
-      }
-
-      return false;
-    },
-    showStudentPages() {
-      if (this.currentUser && this.currentUser.role) {
-        return roles.student & this.currentUser.role;
-      }
-
-      return false;
-    }
   },
   methods: {
     logOut() {
@@ -113,14 +98,30 @@ export default {
     activateMenuItem(path) {
       return this.$route.path.toString().startsWith(path);
     },
+    getPermissions() {
+      this.showAdminPages = this.auth.hasRole(roles.admin);
+      this.showTeacherPages = this.auth.hasRole(roles.teacher);
+      this.showStudentPages = this.auth.hasRole(roles.student);
+    }
   },
   mounted() {
+    this.auth.user = this.$store.state.auth.user;
+    this.roles = roles;
+    this.getPermissions();
     eventBus.on("logout", () => {
       this.logOut();
     });
+    eventBus.on("loggedIn", () => {
+      this.auth.user = this.$store.state.auth.user;
+      this.getPermissions();
+
+    });
+
+    this.isFetchingData = false;
   },
   beforeDestroy() {
     eventBus.remove("logout");
+    eventBus.remove("loggedIn");
   }
 };
 </script>

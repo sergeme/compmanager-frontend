@@ -1,5 +1,5 @@
 <template>
-  <b-card no-body tag="main" class='border-0 p-1 mt-1 ml-2'>
+  <b-card no-body tag="main" class='border-0 p-1 mt-1'>
     <div class="row">
       <div class="col-8">
         <b-input size="sm" v-model="newProcess.name" class></b-input> 
@@ -28,7 +28,6 @@
         name="Klassennamen"
         ref="classnames"
         max-rows="6"></b-form-textarea>
-        {{newProcess.content}}
       </div>
     </div>
   </b-card>

@@ -20,8 +20,8 @@ class AuthService {
     TokenService.removeUser();
   }
 
-  register(user) {
-    api.post(accountEndpoint+'/register', {
+  async register(user) {
+    return await api.post(accountEndpoint+'/register', {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -45,7 +45,6 @@ class AuthService {
   }
 
   resetPassword(payload) {
-    console.log(JSON.stringify(payload))
     return api.post(accountEndpoint+'/reset-password', {
       token: payload.token,
       password: payload.password,

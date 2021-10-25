@@ -92,7 +92,7 @@ export const location = {
     },
     //students
     changeLocationStudentSuccess(state, obj) {
-      console.log(JSON.stringify(state.courses))
+
       var location = state.courses[obj.courseId].locations.findIndex(l => l.id == obj.locationId)
       var location = state.courses[obj.courseId].locations[location].locations.findIndex(cl => cl.id == obj.id)
       state.courses[obj.courseId].locations[location].locations[location]= obj

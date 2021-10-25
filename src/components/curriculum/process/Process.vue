@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card v-if="!editProcessPressed" no-body tag="section" class='border-0 p-1 mt-1 ml-2'>
+    <b-card v-if="!editProcessPressed" no-body tag="section" class='border-0 p-1 mt-1'>
       <div class="row">
         <div class="col-8">
           <span class="h6 ml-1 mb-0 align-middle">{{process.name}}</span>
@@ -16,7 +16,9 @@
       </div>
       <div class="row">
         <div class="col-12">
+          <div class="mx-1">
           <span style="white-space: pre-line;" v-html='process.content' v-if="!editProcessPressed"/>
+          </div>
         </div>
       </div>
     </b-card>

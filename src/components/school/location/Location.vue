@@ -1,5 +1,5 @@
 <template>
-  <b-card no-body tag="section" class='border-0 p-1 mt-1 ml-2'>
+  <b-card no-body tag="section" class='border-0 p-1 mt-1'>
       <div class="row">
         <div class="col-8">
           <span class="h6 ml-1 mb-0 align-middle" v-if="!editLocationPressed">{{location.name}}</span>

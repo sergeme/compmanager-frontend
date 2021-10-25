@@ -54,7 +54,7 @@ export default {
     return {
       message: '',
       selectedCourse:this.processType.courseId,
-      editProcessType: new ProcessType(this.processType.id, this.processType.courseId, this.processType.name),
+      editProcessType: new ProcessType(this.processType.id, this.processType.name, this.processType.courseId),
       courses: [],
       isFetchingData: true
     };
@@ -64,7 +64,6 @@ export default {
     this.$nextTick(() => {
       this.$refs.name.focus();
     })
-    console.log(this.processType.courseId)
   },
   props: {
     curriculumId: Number,

@@ -65,7 +65,6 @@ export default {
       this.submitted = true;
       this.$validator.validate().then(isValid => {
         if (isValid) {
-          console.log(this.newPassword)
           this.$store.dispatch('auth/resetPassword', this.newPassword).then(
             data => {
               this.message = data.message;
